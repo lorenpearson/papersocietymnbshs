@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Northern Beaches General Maths — Papers Society Answers</title>
+<style>
+:root{
+  --ink:#111;
+  --muted:#666;
+  --paper:#fff;
+  --soft:#f3f3f3;
+  --line:#d9d9d9;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+}
+header{
+  border-bottom:4px solid #111;
+  padding:24px 18px 18px;
+}
+.brand{
+  max-width:980px;
+  margin:0 auto;
+}
+.kicker{
+  font-family:Georgia,serif;
+  font-style:italic;
+  font-size:1.05rem;
+  margin-bottom:4px;
+}
+h1{
+  font-size:clamp(1.8rem,6vw,3.4rem);
+  line-height:.95;
+  margin:0;
+  letter-spacing:-.03em;
+  text-transform:uppercase;
+}
+.sub{
+  margin:10px 0 0;
+  color:var(--muted);
+}
+main{
+  max-width:980px;
+  margin:0 auto;
+  padding:24px 18px 60px;
+}
+.breadcrumbs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  align-items:center;
+  margin-bottom:20px;
+  font-size:.95rem;
+}
+.breadcrumbs button{
+  border:0;
+  background:none;
+  padding:0;
+  text-decoration:underline;
+  cursor:pointer;
+  font:inherit;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+  gap:12px;
+}
+.card, .qbtn, .action{
+  appearance:none;
+  border:2px solid #111;
+  background:#fff;
+  color:#111;
+  border-radius:12px;
+  cursor:pointer;
+  transition:.12s ease;
+}
+.card{
+  min-height:110px;
+  padding:18px;
+  text-align:left;
+}
+.card:hover,.qbtn:hover,.action:hover{
+  transform:translateY(-1px);
+  box-shadow:3px 3px 0 #111;
+}
+.card strong{
+  display:block;
+  font-size:1.55rem;
+}
+.card small{
+  display:block;
+  color:var(--muted);
+  margin-top:6px;
+}
+.section-title{
+  margin:26px 0 12px;
+  font-size:1.2rem;
+}
+.questions{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(70px,1fr));
+  gap:9px;
+}
+.qbtn{
+  min-height:54px;
+  padding:10px 8px;
+  font-weight:700;
+}
+.answer-panel{
+  border:2px solid #111;
+  border-radius:14px;
+  padding:18px;
+  background:#fff;
+}
+.answer-panel h2{
+  margin:0 0 6px;
+}
+.notice{
+  background:var(--soft);
+  border-left:5px solid #111;
+  padding:12px 14px;
+  margin:16px 0;
+}
+.action{
+  padding:13px 18px;
+  font-weight:800;
+  font-size:1rem;
+}
+.secondary{
+  margin-left:7px;
+  border-color:#777;
+}
+.answer{
+  display:none;
+  margin-top:20px;
+}
+.answer.open{display:block}
+.mc-answer{
+  width:92px;
+  height:92px;
+  border:5px solid #111;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:3rem;
+  font-weight:900;
+  margin:16px 0;
+}
+.excerpt{
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  margin:14px 0;
+  background:#fafafa;
+}
+.excerpt.cropbox{position:relative;overflow:hidden}
+.excerpt.cropbox img{position:absolute;left:0;top:0}
+.excerpt img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+.meta{
+  color:var(--muted);
+  font-size:.93rem;
+}
+footer{
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:.82rem;
+  line-height:1.45;
+  padding:22px 18px 36px;
+}
+footer .inner{max-width:980px;margin:0 auto}
+.pill{
+  display:inline-block;
+  border:1px solid #111;
+  border-radius:999px;
+  padding:4px 9px;
+  font-size:.78rem;
+  margin-right:5px;
+}
+@media(max-width:520px){
+  .secondary{margin:8px 0 0 0;display:block;width:100%}
+  .action{width:100%}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="kicker">Northern Beaches</div>
+    <h1>General Maths<br>Papers Society</h1>
+    <p class="sub">Answer checker — attempt the question first, then reveal the marking guide.</p>
+  </div>
+</header>
+
+<main>
+  <div id="breadcrumbs" class="breadcrumbs"></div>
+  <div id="app"></div>
+</main>
+
+<footer>
+  <div class="inner">
+    <div class="pill">Unofficial revision aid</div>
+    <p>Marking guide excerpts are from QCAA General Mathematics external assessment materials supplied for this resource. © State of Queensland (QCAA). QCAA materials indicate a Creative Commons Attribution 4.0 licence, subject to the copyright notice and stated exceptions.</p>
+    <p>This site is designed for self-checking only. Students should compare their working with the marking criteria rather than only checking a final answer.</p>
+  </div>
+</footer>
+
+<script>
+const DATA = {"years":{"2024":{"paper1":{"mc":{"1":"B","2":"D","3":"B","4":"D","5":"C","6":"A","7":"C","8":"C","9":"D","10":"C","11":"B","12":"A","13":"A","14":"C","15":"A"},"short":{"16":[{"src":"assets/answers/2024-p1.jpg","y":0,"h":404}],"17":[{"src":"assets/answers/2024-p1.jpg","y":404,"h":243},{"src":"assets/answers/2024-p1.jpg","y":647,"h":183}],"18":[{"src":"assets/answers/2024-p1.jpg","y":830,"h":540}],"19":[{"src":"assets/answers/2024-p1.jpg","y":1370,"h":272}],"20":[{"src":"assets/answers/2024-p1.jpg","y":1642,"h":427},{"src":"assets/answers/2024-p1.jpg","y":2069,"h":137}],"21":[{"src":"assets/answers/2024-p1.jpg","y":2206,"h":586}],"22":[{"src":"assets/answers/2024-p1.jpg","y":2792,"h":695},{"src":"assets/answers/2024-p1.jpg","y":3487,"h":719}],"23":[{"src":"assets/answers/2024-p1.jpg","y":4206,"h":696}],"24":[{"src":"assets/answers/2024-p1.jpg","y":4902,"h":696}],"25":[{"src":"assets/answers/2024-p1.jpg","y":5598,"h":667}]}},"paper2":{"short":{"1":[{"src":"assets/answers/2024-p2.jpg","y":0,"h":660}],"2":[{"src":"assets/answers/2024-p2.jpg","y":660,"h":696}],"3":[{"src":"assets/answers/2024-p2.jpg","y":1356,"h":695}],"4":[{"src":"assets/answers/2024-p2.jpg","y":2051,"h":697}],"5":[{"src":"assets/answers/2024-p2.jpg","y":2748,"h":696},{"src":"assets/answers/2024-p2.jpg","y":3444,"h":719},{"src":"assets/answers/2024-p2.jpg","y":4163,"h":719},{"src":"assets/answers/2024-p2.jpg","y":4882,"h":719},{"src":"assets/answers/2024-p2.jpg","y":5601,"h":719}],"6":[{"src":"assets/answers/2024-p2.jpg","y":6320,"h":696},{"src":"assets/answers/2024-p2.jpg","y":7016,"h":719}],"7":[{"src":"assets/answers/2024-p2.jpg","y":7735,"h":695},{"src":"assets/answers/2024-p2.jpg","y":8430,"h":719},{"src":"assets/answers/2024-p2.jpg","y":9149,"h":690}]}}},"2023":{"paper1":{"mc":{"1":"A","2":"C","3":"B","4":"C","5":"B","6":"B","7":"D","8":"A","9":"B","10":"C","11":"C","12":"D","13":"C","14":"B","15":"B"},"short":{"16":[{"src":"assets/answers/2023-p1.jpg","y":0,"h":643}],"17":[{"src":"assets/answers/2023-p1.jpg","y":643,"h":696}],"18":[{"src":"assets/answers/2023-p1.jpg","y":1339,"h":696}],"19":[{"src":"assets/answers/2023-p1.jpg","y":2035,"h":696}],"20":[{"src":"assets/answers/2023-p1.jpg","y":2731,"h":696}],"21":[{"src":"assets/answers/2023-p1.jpg","y":3427,"h":696}],"22":[{"src":"assets/answers/2023-p1.jpg","y":4123,"h":696}],"23":[{"src":"assets/answers/2023-p1.jpg","y":4819,"h":696}],"24":[{"src":"assets/answers/2023-p1.jpg","y":5515,"h":696}],"25":[{"src":"assets/answers/2023-p1.jpg","y":6211,"h":667}]}},"paper2":{"short":{"1":[{"src":"assets/answers/2023-p2.jpg","y":0,"h":660},{"src":"assets/answers/2023-p2.jpg","y":660,"h":719}],"2":[{"src":"assets/answers/2023-p2.jpg","y":1379,"h":696}],"3":[{"src":"assets/answers/2023-p2.jpg","y":2075,"h":696},{"src":"assets/answers/2023-p2.jpg","y":2771,"h":719}],"4":[{"src":"assets/answers/2023-p2.jpg","y":3490,"h":696}],"5":[{"src":"assets/answers/2023-p2.jpg","y":4186,"h":696}],"6":[{"src":"assets/answers/2023-p2.jpg","y":4882,"h":696}],"7":[{"src":"assets/answers/2023-p2.jpg","y":5578,"h":696},{"src":"assets/answers/2023-p2.jpg","y":6274,"h":690}]}}},"2022":{"paper1":{"mc":{"1":"B","2":"C","3":"A","4":"D","5":"B","6":"C","7":"C","8":"A","9":"B","10":"D","11":"D","12":"C","13":"D","14":"A","15":"A"},"short":{"16":[{"src":"assets/answers/2022-p1.jpg","y":0,"h":643}],"17":[{"src":"assets/answers/2022-p1.jpg","y":643,"h":696}],"18":[{"src":"assets/answers/2022-p1.jpg","y":1339,"h":696}],"19":[{"src":"assets/answers/2022-p1.jpg","y":2035,"h":696}],"20":[{"src":"assets/answers/2022-p1.jpg","y":2731,"h":696}],"21":[{"src":"assets/answers/2022-p1.jpg","y":3427,"h":696}],"22":[{"src":"assets/answers/2022-p1.jpg","y":4123,"h":696}],"23":[{"src":"assets/answers/2022-p1.jpg","y":4819,"h":696}],"24":[{"src":"assets/answers/2022-p1.jpg","y":5515,"h":696}],"25":[{"src":"assets/answers/2022-p1.jpg","y":6211,"h":667}]}},"paper2":{"short":{"1":[{"src":"assets/answers/2022-p2.jpg","y":0,"h":653}],"2":[{"src":"assets/answers/2022-p2.jpg","y":653,"h":696}],"3":[{"src":"assets/answers/2022-p2.jpg","y":1349,"h":696}],"4":[{"src":"assets/answers/2022-p2.jpg","y":2045,"h":696}],"5":[{"src":"assets/answers/2022-p2.jpg","y":2741,"h":696}],"6":[{"src":"assets/answers/2022-p2.jpg","y":3437,"h":697}],"7":[{"src":"assets/answers/2022-p2.jpg","y":4134,"h":677},{"src":"assets/answers/2022-p2.jpg","y":4811,"h":690}]}}},"2021":{"paper1":{"mc":{"1":"C","2":"B","3":"D","4":"D","5":"C","6":"A","7":"A","8":"B","9":"C","10":"D","11":"B","12":"D","13":"C","14":"A","15":"B"},"short":{"16":[{"src":"assets/answers/2021-p1.jpg","y":0,"h":660}],"17":[{"src":"assets/answers/2021-p1.jpg","y":660,"h":694}],"18":[{"src":"assets/answers/2021-p1.jpg","y":1354,"h":694}],"19":[{"src":"assets/answers/2021-p1.jpg","y":2048,"h":248}],"20":[{"src":"assets/answers/2021-p1.jpg","y":2296,"h":450}],"21":[{"src":"assets/answers/2021-p1.jpg","y":2746,"h":310}],"22":[{"src":"assets/answers/2021-p1.jpg","y":3056,"h":388},{"src":"assets/answers/2021-p1.jpg","y":3444,"h":719}],"23":[{"src":"assets/answers/2021-p1.jpg","y":4163,"h":121}],"24":[{"src":"assets/answers/2021-p1.jpg","y":4284,"h":97}],"25":[{"src":"assets/answers/2021-p1.jpg","y":4381,"h":455}]}},"paper2":{"short":{"1":[{"src":"assets/answers/2021-p2.jpg","y":0,"h":232}],"2":[{"src":"assets/answers/2021-p2.jpg","y":232,"h":431}],"3":[{"src":"assets/answers/2021-p2.jpg","y":663,"h":694}],"4":[{"src":"assets/answers/2021-p2.jpg","y":1357,"h":692}],"5":[{"src":"assets/answers/2021-p2.jpg","y":2049,"h":692}],"6":[{"src":"assets/answers/2021-p2.jpg","y":2741,"h":692}],"7":[{"src":"assets/answers/2021-p2.jpg","y":3433,"h":663}]}}},"2020":{"paper1":{"mc":{"1":"C","2":"A","3":"C","4":"D","5":"B","6":"B","7":"C","8":"B","9":"D","10":"D","11":"B","12":"A","13":"A","14":"C","15":"A"},"short":{"16":[{"src":"assets/answers/2020-p1.jpg","y":0,"h":273}],"17":[{"src":"assets/answers/2020-p1.jpg","y":273,"h":375}],"18":[{"src":"assets/answers/2020-p1.jpg","y":648,"h":332}],"19":[{"src":"assets/answers/2020-p1.jpg","y":980,"h":364}],"20":[{"src":"assets/answers/2020-p1.jpg","y":1344,"h":694}],"21":[{"src":"assets/answers/2020-p1.jpg","y":2038,"h":692}],"22":[{"src":"assets/answers/2020-p1.jpg","y":2730,"h":331}],"23":[{"src":"assets/answers/2020-p1.jpg","y":3061,"h":367}],"24":[{"src":"assets/answers/2020-p1.jpg","y":3428,"h":203}],"25":[{"src":"assets/answers/2020-p1.jpg","y":3631,"h":493}],"26":[{"src":"assets/answers/2020-p1.jpg","y":4124,"h":665}]}},"paper2":{"short":{"1":[{"src":"assets/answers/2020-p2.jpg","y":0,"h":640},{"src":"assets/answers/2020-p2.jpg","y":640,"h":131}],"2":[{"src":"assets/answers/2020-p2.jpg","y":771,"h":363}],"3":[{"src":"assets/answers/2020-p2.jpg","y":1134,"h":233},{"src":"assets/answers/2020-p2.jpg","y":1367,"h":719}],"4":[{"src":"assets/answers/2020-p2.jpg","y":2086,"h":694}],"5":[{"src":"assets/answers/2020-p2.jpg","y":2780,"h":694}],"6":[{"src":"assets/answers/2020-p2.jpg","y":3474,"h":694}],"7":[{"src":"assets/answers/2020-p2.jpg","y":4168,"h":665}]}}}}};
+
+function route(){
+  const bits = location.hash.replace(/^#/,'').split('/').filter(Boolean);
+  return {year:bits[0], paper:bits[1], q:bits[2]};
+}
+function setHash(parts){
+  location.hash = parts.filter(Boolean).join('/');
+}
+function el(tag, cls, html){
+  const n=document.createElement(tag);
+  if(cls) n.className=cls;
+  if(html!==undefined) n.innerHTML=html;
+  return n;
+}
+function button(label, cls, fn){
+  const b=el('button',cls,label);
+  b.addEventListener('click',fn);
+  return b;
+}
+function crumbs(r){
+  const c=document.getElementById('breadcrumbs');
+  c.innerHTML='';
+  c.append(button('Home','',()=>setHash([])));
+  if(r.year){
+    c.append(document.createTextNode('›'));
+    c.append(button(r.year,'',()=>setHash([r.year])));
+  }
+  if(r.paper){
+    c.append(document.createTextNode('›'));
+    c.append(button(r.paper==='p1'?'Paper 1':'Paper 2','',()=>setHash([r.year,r.paper])));
+  }
+  if(r.q){
+    c.append(document.createTextNode('›'));
+    c.append(document.createTextNode('Question '+r.q.replace(/^q/,'')));
+  }
+}
+function renderHome(app){
+  const h=el('h2','section-title','Choose a year');
+  app.append(h);
+  const g=el('div','grid');
+  Object.keys(DATA.years).sort((a,b)=>b-a).forEach(y=>{
+    const c=button(`<strong>${y}</strong><small>Paper 1 & Paper 2</small>`,'card',()=>setHash([y]));
+    g.append(c);
+  });
+  app.append(g);
+}
+function renderYear(app,r){
+  const y=DATA.years[r.year];
+  if(!y) return renderHome(app);
+  app.append(el('h2','section-title',`${r.year} external assessment`));
+  const g=el('div','grid');
+  g.append(button('<strong>Paper 1</strong><small>15 multiple choice + short response</small>','card',()=>setHash([r.year,'p1'])));
+  g.append(button('<strong>Paper 2</strong><small>Short response</small>','card',()=>setHash([r.year,'p2'])));
+  app.append(g);
+}
+function renderPaper(app,r){
+  const y=DATA.years[r.year];
+  if(!y) return renderHome(app);
+  const p = r.paper==='p1'?y.paper1:y.paper2;
+  if(!p) return renderYear(app,r);
+  app.append(el('h2','section-title',`${r.year} — ${r.paper==='p1'?'Paper 1':'Paper 2'}`));
+
+  if(r.paper==='p1'){
+    app.append(el('h3','section-title','Multiple choice'));
+    const g=el('div','questions');
+    Object.keys(p.mc).forEach(q=>{
+      g.append(button(`Q${q}`,'qbtn',()=>setHash([r.year,'p1','q'+q])));
+    });
+    app.append(g);
+  }
+
+  app.append(el('h3','section-title','Short response'));
+  const g2=el('div','questions');
+  Object.keys(p.short).forEach(q=>{
+    g2.append(button(`Q${q}`,'qbtn',()=>setHash([r.year,r.paper,'q'+q])));
+  });
+  app.append(g2);
+}
+function renderQuestion(app,r){
+  const y=DATA.years[r.year];
+  if(!y) return renderHome(app);
+  const p=r.paper==='p1'?y.paper1:y.paper2;
+  const qn=r.q.replace(/^q/,'');
+  const isMC = r.paper==='p1' && p.mc && p.mc[qn];
+  const imgs = p.short && p.short[qn];
+
+  if(!isMC && !imgs) return renderPaper(app,r);
+
+  const panel=el('div','answer-panel');
+  panel.append(el('h2','',`${r.year} ${r.paper==='p1'?'Paper 1':'Paper 2'} — Question ${qn}`));
+  panel.append(el('p','meta',isMC?'Multiple choice':'Short response'));
+  panel.append(el('div','notice','Attempt the question first. When you are ready, reveal the answer or official marking-guide excerpt.'));
+  const reveal=button('Reveal answer','action',()=>ans.classList.toggle('open'));
+  panel.append(reveal);
+  panel.append(button('Copy question link','action secondary',async()=>{
+    try{
+      await navigator.clipboard.writeText(location.href);
+      event.target.textContent='Link copied';
+      setTimeout(()=>event.target.textContent='Copy question link',1200);
+    }catch(e){}
+  }));
+
+  const ans=el('div','answer');
+  if(isMC){
+    ans.append(el('div','mc-answer',p.mc[qn]));
+    ans.append(el('p','meta','Check your working as well as the selected option.'));
+  } else {
+    ans.append(el('p','meta','QCAA marking-guide excerpt for this question:'));
+    imgs.forEach(crop=>{
+      const box=el('div','excerpt cropbox');
+      const im=document.createElement('img');
+      im.src=crop.src; im.alt=`Marking guide excerpt for ${r.year} ${r.paper} question ${qn}`;
+      im.loading='lazy';
+      im.addEventListener('load',()=>{
+        const scale=box.clientWidth/im.naturalWidth;
+        box.style.height=(crop.h*scale)+'px';
+        im.style.width='100%';
+        im.style.transform=`translateY(${-crop.y*scale}px)`;
+      });
+      box.append(im);
+      ans.append(box);
+    });
+  }
+  panel.append(ans);
+  app.append(panel);
+}
+function render(){
+  const r=route();
+  crumbs(r);
+  const app=document.getElementById('app');
+  app.innerHTML='';
+  if(!r.year) renderHome(app);
+  else if(!r.paper) renderYear(app,r);
+  else if(!r.q) renderPaper(app,r);
+  else renderQuestion(app,r);
+}
+window.addEventListener('hashchange',render);
+render();
+</script>
+</body>
+</html>
