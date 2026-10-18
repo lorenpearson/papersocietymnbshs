@@ -260,7 +260,12 @@ function renderHome(app){
     g.append(c);
   });
   app.append(g);
+  app.append(el('h2','section-title','Additional practice papers'));
+  const extras=el('div','grid');
+  extras.append(button('<strong>Pearson</strong><small>Units 3 &amp; 4 · Paper 1 · 35 questions</small>','card',()=>{window.location.href='pearson-paper-1.html';}));
+  app.append(extras);
 }
+
 function renderYear(app,r){
   const y=DATA.years[r.year];
   if(!y) return renderHome(app);
